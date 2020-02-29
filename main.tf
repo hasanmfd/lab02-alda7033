@@ -1,10 +1,11 @@
+provider "google" {
   project = "seis64401"
   region  = "us-central1"
-  zone    = "us-central1-a"
+  zone    = "us-central1-c"
 }
 
 resource "google_compute_instance" "svc-1" {
-  name         = "gsinstance"
+  name         = "gsinstance1"
   machine_type = "f1-micro"
   zone         = "us-central1-c"
   metadata = {
@@ -26,7 +27,7 @@ resource "google_compute_instance" "svc-1" {
 provisioner "remote-exec" {
     connection {
       host        = "${google_compute_instance.svc-1.network_interface.0.access_config.0.nat_ip}"
-      user        = "alda7033"
+      user        = "hasanmfd"
       type        = "ssh"
       private_key = "${file("~/.ssh/google_compute_engine")}"
       }
@@ -39,7 +40,7 @@ provisioner "remote-exec" {
     destination = "~/svc-01"
     connection {
       host        = "${google_compute_instance.svc-1.network_interface.0.access_config.0.nat_ip}"
-      user        = ""
+      user        = "hasanmfd"
       type        = "ssh"
       private_key = "${file("~/.ssh/google_compute_engine")}"
     }
@@ -47,7 +48,7 @@ provisioner "remote-exec" {
   provisioner "remote-exec" {
     connection {
       host        = "${google_compute_instance.svc-1.network_interface.0.access_config.0.nat_ip}"
-      user        = "alda7033"
+      user        = "hasanmfd"
       type        = "ssh"
       private_key = "${file("~/.ssh/google_compute_engine")}"
       }
